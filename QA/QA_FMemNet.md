@@ -1,5 +1,9 @@
 # Question Answering over Knowledge Base using Factual Memory Networks
 
+```
+这篇论文提出了一个Factual Memory Networks模型，该模型可以有多个计算层，每个计算层的输入是一个问题向量q和候选的fact列表，然后计算问题与每个fact的相似度，根据相似度去掉fact列表里得分低的fact，再加上分数高的子fact，并对问题向量进行更新，这样就得到了输出，可以作为下一层的输入。Factual Memory Network的训练集是问答对，标签数据是答案fact的object,而不需要整个fact。目标函数是让真实答案的向量表示与模型输出的加权期望值的评分差最小，每个候选答案与问题的相似度作为权重。模型的参数只有词向量。
+```
+
 ## 摘要
 最近在自动问答任务上，Memory Networks在复杂的推理和扩展性上表现出色，不仅仅限制在训练数据包含的主题范围。这篇论文介绍了Factual Memory Network,可以根据相关的facts从知识库抽取和推理问题的答案。我们的系统在同一个词向量空间生成问题和KB的分布式表示，抽取初始候选facts的一个子集，然后使用mutli-hop推理和提纯，尝试寻找到答案实体的路径。另外，我们也通过各种计算的启发来提高模型运行时的效率。
 
@@ -18,6 +22,10 @@ __FreeBase:__ Freebase(Bollacker et al.,2008)是一个巨大的，免费的事�
 Freebase的整体结构是一个超图，两个以上的实体可以通过一个n-ary(n元)事实联系在一起。潜在的三元组存储使用虚拟(dummy)实体来表示这些事实，从而使真实的实体通过长度为2而不是1的路径连接。比如，对于表述“A starred as character B in movie C”在Freebase里表示成(A,'staring',dummy entity),(dummy entity,'movie',C)，(dummy entity,'character',B), dummy entity在这三个fact里有相同的内部id。
 为了得到实体间的直接的链接，我们通过删除虚拟实体来修改这些facts，并使用第二个关系作为新的condensed(浓缩的) facts。比如前面的例子可以浓缩为：（A,'character',B）和（A,'movie',C）。同时，我们把这些浓缩的实体相互标记为另一的子孙。这样，（A,'character',B）是（A,movie,C）的子孙，反之亦然。进一步的，我们使用词条'fact'来表示Freebase里的triplet, 这些词条'fact'只包含真正的实体（没有dummy实体）。
 经过上面的处理后，我们把每个实体和关系表示成向量，每个实体/关系向量是有它的词的平均词向量表示的。对于实体，我们还使用它的别名的词向量来进行计算平均值。
+### 3.2 处理问题
+问题是一个词序列(x1,x2,...,xn),每个词xi用词向量表示，我们用两种方法来通过word-vector计算问题的embedding:
+(1) Bag-of-words(BOW): 词向量求和
+(2) Position Encoding(PE): 考虑了问题中词的顺序。
 
 ## Model
 
