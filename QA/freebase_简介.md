@@ -1,7 +1,7 @@
 [网址:https://developers.google.com/freebase/][1]
 ## 简介
 __FreeBase:__ Freebase(Bollacker et al.,2008)是一个巨大的，免费的事实数据库，组织成三元组的形式（subject Entity,Relationship,object Entity）。Freebase的实体和关系都有类别，并且类别和关系的词典类似。每个实体有一个内部的id和一些可选的名字集（别名）来在文本中引用该实体。
-Freebase有超过46million的主题和2.6亿的事实。在Freebase的设计中，有一个特殊的实体类别叫做合成值类型（CVT）,它不现实世界的实体，但是可以用来存放事件的多个域或一个特殊的关系。
+Freebase有超过46million的主题和2.6billion的事实。在Freebase的设计中，有一个特殊的实体类别叫做合成值类型（CVT）,它不现实世界的实体，但是可以用来存放事件的多个域或一个特殊的关系。
 Freebase中的每个实体都有一个唯一的"id"和一个唯一的"mid". "mid"是实体的机器码，其形式为：/m/012rkqx,在RDF里为 m.012rkqx。"id"是人类可读的ID,形式为：award.award_winner。 
 
 ## 基本概念
